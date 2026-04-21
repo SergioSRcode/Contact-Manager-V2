@@ -9,6 +9,38 @@
   <script src="/javascripts/handlebars.js"></script>
 </head>
 <body>
-
+  <header>
+    <div>
+      <a href="#home">
+        <h1>Contact Manager</h1>
+      </a>
+      <p>Using Backbone.js, Localstorage, RequireJS, Handlebar and Bootstrap</p>
+    </div>
+  </header>
+  <main>
+    <div id="topbar">
+      <a href="#contacts/new" class="btn newContactForm">Add Contact</a>
+      <input type="text" class="contact-name-search" placeholder="Search">
+    </div>
+    <div id="contacts-container">
+      <ul id="contacts"></ul>
+    </div>
+    <div id="empty-contacts-placeholder">
+      <!-- Hidden if contacts are available -->
+      <h3>There are no contacts</h3>
+      <a href="#contacts/new" class="btn newContactForm">Add Contact</a>
+    </div>
+    <div id="empty-search-contacts-placeholder">
+      <!-- dynamically generated content -->
+    </div>
+  </main>
+  <footer>
+    <p>
+      "Developed by "
+      <a href="http://www.239listing.com">Devsaran.com</a>
+      " and "
+      <a href="http://www.239listing.com">239 Listing Real Estate</a>
+    </p>
+  </footer>
 </body>
 </html>
