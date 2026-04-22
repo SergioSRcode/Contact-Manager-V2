@@ -1,15 +1,19 @@
 import { ContactsAPI } from "./contacts_api.js";
 import { Contact } from "./contact.js";
+import { Form } from "./contact-form.js";
 
 export class ContactsList {
-  constructor() {
+  constructor(mainContent) {
     this.contactsUl;
     this.jsonList;
     this.htmlList;
+    this.mainContent = mainContent;
   }
 
   async renderList() {
     const contactsWrapper = document.querySelector('#contacts-container');
+    contactsWrapper.innerHTML = '';
+
     this.contactsUl = document.createElement('ul');
     this.contactsUl.id = 'contacts'
     contactsWrapper.append(this.contactsUl);
@@ -22,6 +26,7 @@ export class ContactsList {
     this.hideEmptyContactsPlaceholder();
     // attach event listener to this.contactsUl (each list element button and tag)
     this.enableFilterByTag();
+    this.initRouteToForm();
   }
 
   hideEmptyContactsPlaceholder() {
@@ -75,5 +80,15 @@ export class ContactsList {
 
   getHTMLList() { // read only?
     // return copy of this.htmlList
+  }
+
+  initRouteToForm() {
+    const linksToForm = document.querySelectorAll('.newContactForm');
+    linksToForm.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        new Form(this.mainContent, this).renderForm();
+      });
+    });
   }
 }
