@@ -1,3 +1,9 @@
 .hidden {
   display: none;
 }
+
+.highlight {
+  border-style: double;
+  background-color: black;
+  color: white;
+}

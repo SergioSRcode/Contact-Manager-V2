@@ -3,7 +3,7 @@ export class Contact {
     this.full_name = full_name;
     this.email = email;
     this.tel = phone_number;
-    this.tags = tags || "";
+    this.tags = tags;
     this.id = id;
   }
 
@@ -50,10 +50,14 @@ export class Contact {
 
     const dtTags = document.createElement('dt');
     dtTags.textContent = 'Tags:';
-    const ddTags = document.createElement('dd');
-  
-    ddTags.innerHTML = this.tags.split(",").map(tag => `<a href="#">${tag}</a>`).join(", ");
 
+    const ddTags = document.createElement('dd');
+    ddTags.classList.add('tags');
+    // this.tags === null when no tags are provided
+    if (this.tags) {
+      ddTags.innerHTML = this.tags.split(",").map(tag => `<a href="#" class="tag">${tag}</a>`).join(", ");
+    }
+    
     dl.replaceChildren(dtPhoneNum, ddPhoneNum, dtEmail, ddEmail, dtTags, ddTags);
     contactBody.append(dl);
 
