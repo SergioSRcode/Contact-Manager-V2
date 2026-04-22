@@ -84,20 +84,6 @@
     "id": 12
   },
   {
-    "full_name": "ee",
-    "phone_number": "",
-    "email": "",
-    "tags": "",
-    "id": 13
-  },
-  {
-    "full_name": "d",
-    "phone_number": "",
-    "email": "",
-    "tags": "",
-    "id": 14
-  },
-  {
     "full_name": "abro",
     "phone_number": "",
     "email": "",
@@ -110,5 +96,12 @@
     "email": "",
     "tags": "tester",
     "id": 16
+  },
+  {
+    "full_name": "Motte",
+    "phone_number": "123",
+    "email": "",
+    "tags": "friend",
+    "id": 17
   }
 ]

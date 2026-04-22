@@ -23,6 +23,8 @@ export class ContactsList {
 
     this.contactsUl.replaceChildren(...listElements);
     this.htmlList = this.contactsUl;
+
+    this.enableContactButtons();
     this.hideEmptyContactsPlaceholder();
     // attach event listener to this.contactsUl (each list element button and tag)
     this.enableFilterByTag();
@@ -32,6 +34,30 @@ export class ContactsList {
   hideEmptyContactsPlaceholder() {
     const placeholder = document.querySelector('#empty-contacts-placeholder');
     if (this.jsonList.length !== 0) placeholder.classList.add('hidden');
+  }
+
+  enableContactButtons() {
+    this.contactsUl.addEventListener('click', async e => {
+      const btn = e.target;
+      if (btn.classList.contains('edit-btn')) {
+
+      } else if (btn.classList.contains('delete-btn')) {
+        const currentContact = btn.closest('li');
+        const currentContactName = currentContact.querySelector('h3').textContent;
+        
+        if (confirm(`Do you want to delete "${currentContactName}" ?`)) {
+          const isDeleted = await ContactsAPI.deleteById(currentContact.id);
+          if (!isDeleted) {
+            // do sth
+            return;
+          }
+
+          this.renderList();
+        }
+      } else {
+        return;
+      }
+    });
   }
 
   searchList() {
@@ -68,10 +94,6 @@ export class ContactsList {
         });
       };
     });
-  }
-
-  createNewContact() {
-    // instantiate contact obj from Contact class
   }
 
   getJSONList() { // read only?
