@@ -39,14 +39,18 @@ export class ContactsList {
   enableContactButtons() {
     this.contactsUl.addEventListener('click', async e => {
       const btn = e.target;
-      if (btn.classList.contains('edit-btn')) {
+      const currentContact = btn.closest('li');
+      const currentContactName = currentContact.querySelector('h3').textContent;
 
+      if (btn.classList.contains('edit-btn')) {
+        const contactObj = await ContactsAPI.getById(currentContact.id);
+
+        new Form(this.mainContent, this).renderForm(contactObj);
       } else if (btn.classList.contains('delete-btn')) {
-        const currentContact = btn.closest('li');
-        const currentContactName = currentContact.querySelector('h3').textContent;
-        
+
         if (confirm(`Do you want to delete "${currentContactName}" ?`)) {
           const isDeleted = await ContactsAPI.deleteById(currentContact.id);
+
           if (!isDeleted) {
             // do sth
             return;
@@ -55,12 +59,13 @@ export class ContactsList {
           this.renderList();
         }
       } else {
+
         return;
       }
     });
   }
 
-  searchList() {
+  enableSearchList() {
     // searches list by input value (according to name)
   }
 
@@ -94,14 +99,6 @@ export class ContactsList {
         });
       };
     });
-  }
-
-  getJSONList() { // read only?
-    // return copy of this.jsonList
-  }
-
-  getHTMLList() { // read only?
-    // return copy of this.htmlList
   }
 
   initRouteToForm() {

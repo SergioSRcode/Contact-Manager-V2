@@ -7,9 +7,10 @@ export class Form {
     this.main = document.querySelector('main');
   }
 
-  renderForm() {
+  renderForm(contactObj = {}) {
     // renders form layout
-    const contactFormHtml = this.createHeaderHTML() + this.createNewContactFormHTML();
+    const contactFormHtml = this.createHeaderHTML() + this.createNewContactFormHTML(contactObj);
+  
     this.main.innerHTML = contactFormHtml;
 
     // adds event to cancelbtn; renders previous state
@@ -18,21 +19,29 @@ export class Form {
 
     // creates Contact; renders new state
     const form = document.querySelector('form'); 
-    form.addEventListener('submit', e => this.handleSubmit(e));
+    form.addEventListener('submit', e => this.handleSubmit(e, contactObj.id));
   }
 
   handleCancel(e) {
     this.main.replaceChildren(...this.listPageContent);
   } 
 
-  async handleSubmit(e) {
+  async handleSubmit(e, contactId) {
     e.preventDefault();
     const form = e.currentTarget;
-
-    const isCreated = await ContactsAPI.createContact(form);
-    if (!isCreated) {
-      // do something
+    
+    if (contactId) {
+      const isUpdated = await ContactsAPI.updateContactbyId(contactId, form);
+      if (!isUpdated) {
+        // do something
+      }
+    } else {
+      const isCreated = await ContactsAPI.createContact(form);
+      if (!isCreated) {
+        // do something
+      }
     }
+
     // render contact list page (previous state)
     this.main.replaceChildren(...this.listPageContent);
     // render new state
@@ -47,20 +56,20 @@ export class Form {
     `;
   }
 
-  createNewContactFormHTML() {
+  createNewContactFormHTML(contact) {
     return `
       <form role="form">
         <label>Full name:</label>
-        <input type="text" name="full_name" value>
+        <input type="text" name="full_name" value="${contact.full_name || ''}">
 
         <label>Email address:</label>
-        <input type="email" name="email" value>
+        <input type="email" name="email" value="${contact.email || ''}">
 
         <label>Telephone number:</label>
-        <input type="tel" name="phone_number" value>
+        <input type="tel" name="phone_number" value="${contact.phone_number || ''}">
 
         <label>Tags</label>
-        <input type="text" name="tags" value>
+        <input type="text" name="tags" value="${contact.tags || ''}">
 
         <button id="submit-btn" type="submit">Submit</button>
       </form>
