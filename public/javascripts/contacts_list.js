@@ -11,7 +11,6 @@ export class ContactsList {
     const ul = document.querySelector('#contacts');
 
     this.jsonList = await ContactsAPI.getAll();
-    // const listElements = Array.from(this.jsonList).map(contact => this.createListElement(contact));
     const listElements = Array.from(this.jsonList).map(contactInfo => new Contact(contactInfo).createListElement());
 
     ul.replaceChildren(...listElements);

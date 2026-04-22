@@ -1,8 +1,8 @@
 export class Contact {
-  constructor({ full_name, email, tel, tags, id }) {
+  constructor({ full_name, email, phone_number, tags, id }) {
     this.full_name = full_name;
     this.email = email;
-    this.tel = tel;
+    this.tel = phone_number;
     this.tags = tags || "";
     this.id = id;
   }
