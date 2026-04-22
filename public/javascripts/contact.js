@@ -1,10 +1,63 @@
 export class Contact {
-  constructor(full_name, email, tel, tags, id) {
+  constructor({ full_name, email, tel, tags, id }) {
     this.full_name = full_name;
     this.email = email;
     this.tel = tel;
-    this.tags = tags;
+    this.tags = tags || "";
     this.id = id;
+  }
+
+  createListElement() {
+    const li = document.createElement('li');
+    li.id = this.id;
+
+    const contactHeading = this.constructContactHeading();
+    const contactBody = this.constructContactBody();
+    // create buttons
+    
+    li.replaceChildren(contactHeading, contactBody);
+
+    return li;
+  }
+
+  constructContactHeading() {
+    const contactHeading = document.createElement('div');
+    contactHeading.classList.add('contact-heading');
+    
+    const heading = document.createElement('h3');
+    heading.textContent = this.full_name;
+
+    contactHeading.append(heading);
+
+    return contactHeading;
+  }
+
+  constructContactBody() {
+    const contactBody = document.createElement('div');
+    contactBody.classList.add('contact-body');
+
+    const dl = document.createElement('dl');
+
+    const dtPhoneNum = document.createElement('dt');
+    dtPhoneNum.textContent = 'Phone Number:';
+    const ddPhoneNum = document.createElement('dd');
+    ddPhoneNum.textContent = this.tel;
+
+    const dtEmail = document.createElement('dt');
+    dtEmail.textContent = 'Email:';
+    const ddEmail = document.createElement('dd');
+    ddEmail.textContent = this.email;
+
+    const dtTags = document.createElement('dt');
+    dtTags.textContent = 'Tags:';
+    const ddTags = document.createElement('dd');
+    // if no tags are present, value is null. This turns null to an empty string instead.
+    ddTags.innerHTML = this.tags.split(",").map(tag => `<a href="#">${tag}</a>`).join(", ") || "";
+
+    dl.replaceChildren(dtPhoneNum, ddPhoneNum, dtEmail, ddEmail, dtTags, ddTags);
+    contactBody.append(dl);
+
+    return contactBody;
   }
 
   update() {
