@@ -1,39 +1,42 @@
+import { ContactsAPI } from "./contacts_api.js";
+
 export class Form {
-  constructor(mainContent, list) {
-    this.mainContent = mainContent;
+  constructor(listPageContent, list) {
+    this.listPageContent = listPageContent;
     this.contactList = list;
+    this.main = document.querySelector('main');
   }
 
   renderForm() {
     // renders form layout
-    const main = document.querySelector('main');
     const contactFormHtml = this.createHeaderHTML() + this.createNewContactFormHTML();
-    main.innerHTML = contactFormHtml;
+    this.main.innerHTML = contactFormHtml;
 
     // adds event to cancelbtn; renders previous state
     const cancelBtn = document.querySelector('#cancel-btn');
-    cancelBtn.addEventListener('click', e => {
-      main.replaceChildren(...this.mainContent);
-    });
+    cancelBtn.addEventListener('click', e => this.handleCancel(e));
 
-    const submitButton = document.querySelector('#submit-btn'); // get form
-    submitButton.addEventListener('click', e => { // turn click to submit
-      e.preventDefault();
-
-      main.replaceChildren(...this.mainContent);
-      this.contactList.renderList();
-    });
+    // creates Contact; renders new state
+    const form = document.querySelector('form'); 
+    form.addEventListener('submit', e => this.handleSubmit(e));
   }
 
-  async handleSubmit() {
-    const main = document.querySelector('main');
-    const submitButton = document.querySelector('#submit-btn');
-    submitButton.addEventListener('submit', e => {
-      e.preventDefault();
-      console.log('clicked')
-      main.replaceChildren(...this.mainContent);
-      this.contactList.renderList();
-    })
+  handleCancel(e) {
+    this.main.replaceChildren(...this.listPageContent);
+  } 
+
+  async handleSubmit(e) {
+    e.preventDefault();
+    const form = e.currentTarget;
+
+    const isCreated = await ContactsAPI.createContact(form);
+    if (!isCreated) {
+      // do something
+    }
+    // render contact list page (previous state)
+    this.main.replaceChildren(...this.listPageContent);
+    // render new state
+    this.contactList.renderList();
   }
 
   createHeaderHTML() {
