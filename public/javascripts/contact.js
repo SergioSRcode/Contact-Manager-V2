@@ -13,9 +13,9 @@ export class Contact {
 
     const contactHeading = this.constructContactHeading();
     const contactBody = this.constructContactBody();
-    // create buttons
+    const contactButtons = this.constructContactButtons();
     
-    li.replaceChildren(contactHeading, contactBody);
+    li.replaceChildren(contactHeading, contactBody, contactButtons);
 
     return li;
   }
@@ -51,13 +51,28 @@ export class Contact {
     const dtTags = document.createElement('dt');
     dtTags.textContent = 'Tags:';
     const ddTags = document.createElement('dd');
-    // if no tags are present, value is null. This turns null to an empty string instead.
-    ddTags.innerHTML = this.tags.split(",").map(tag => `<a href="#">${tag}</a>`).join(", ") || "";
+  
+    ddTags.innerHTML = this.tags.split(",").map(tag => `<a href="#">${tag}</a>`).join(", ");
 
     dl.replaceChildren(dtPhoneNum, ddPhoneNum, dtEmail, ddEmail, dtTags, ddTags);
     contactBody.append(dl);
 
     return contactBody;
+  }
+
+  constructContactButtons() {
+    const btnWrapper = document.createElement('div');
+    btnWrapper.classList.add('contact-btn-wrapper');
+
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+
+    btnWrapper.replaceChildren(editBtn, deleteBtn);
+
+    return btnWrapper;
   }
 
   update() {
