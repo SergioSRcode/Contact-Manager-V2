@@ -80,12 +80,4 @@ export class Contact {
 
     return btnWrapper;
   }
-
-  update() {
-    // updates contact
-  }
-
-  delete() {
-    // removes contact
-  }
 }

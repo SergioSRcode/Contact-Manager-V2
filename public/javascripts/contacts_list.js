@@ -1,12 +1,13 @@
 import { ContactsAPI } from "./contacts_api.js";
 import { Contact } from "./contact.js";
 import { Form } from "./contact-form.js";
+import { SearchFilter } from "./search-filter.js";
 
 export class ContactsList {
   constructor(mainContent) {
     this.contactsUl;
     this.jsonList;
-    this.htmlList;
+    this.htmlList;  // probably not needed
     this.mainContent = mainContent;
   }
 
@@ -29,6 +30,7 @@ export class ContactsList {
     // attach event listener to this.contactsUl (each list element button and tag)
     this.enableFilterByTag();
     this.initRouteToForm();
+    this.enableSearchFilter();
   }
 
   hideEmptyContactsPlaceholder() {
@@ -65,10 +67,6 @@ export class ContactsList {
     });
   }
 
-  enableSearchList() {
-    // searches list by input value (according to name)
-  }
-
   enableFilterByTag() {
     this.contactsUl.addEventListener('click', e => {
       if (e.target.classList.contains('tag')) {
@@ -97,7 +95,7 @@ export class ContactsList {
             }
           }
         });
-      };
+      }
     });
   }
 
@@ -109,5 +107,9 @@ export class ContactsList {
         new Form(this.mainContent, this).renderForm();
       });
     });
+  }
+
+  enableSearchFilter() {
+    new SearchFilter(this.contactsUl);
   }
 }
