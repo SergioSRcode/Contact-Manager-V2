@@ -8,7 +8,6 @@ export class ContactsList {
   constructor(mainContent) {
     this.contactsUl;
     this.jsonList;
-    this.htmlList;  // probably not needed
     this.mainContent = mainContent;
   }
 
@@ -22,19 +21,17 @@ export class ContactsList {
 
     this.jsonList = await ContactsAPI.getAll();
     const listElements = Array.from(this.jsonList).map(contactInfo => new Contact(contactInfo).createListElement());
-
+    // fill ul with fetched contacts
     this.contactsUl.replaceChildren(...listElements);
-    this.htmlList = this.contactsUl;
 
+    this.enableEmptyContactsPlaceholder();
     this.enableContactButtons();
-    this.hideEmptyContactsPlaceholder();
-    // attach event listener to this.contactsUl (each list element button and tag)
     this.enableFilterByTag();
-    this.initRouteToForm();
     this.enableSearchFilter();
+    this.initRouteToForm();
   }
 
-  hideEmptyContactsPlaceholder() {
+  enableEmptyContactsPlaceholder() {
     const placeholder = document.querySelector('#empty-contacts-placeholder');
     if (this.jsonList.length !== 0) placeholder.classList.add('hidden');
   }
@@ -63,7 +60,6 @@ export class ContactsList {
           showNotification(`Contact "${currentContactName}" was deleted.`, 'success');
         }
       } else {
-
         return;
       }
     });

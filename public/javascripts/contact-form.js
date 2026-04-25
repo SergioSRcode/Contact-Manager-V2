@@ -1,5 +1,6 @@
 import { ContactsAPI } from "./contacts_api.js";
 import { showNotification } from "./notification.js";
+import { Layout } from "./layout.js";
 
 export class Form {
   constructor(listPageContent, list) {
@@ -16,14 +17,14 @@ export class Form {
 
     // adds event to cancelbtn; renders previous state
     const cancelBtn = document.querySelector('#cancel-btn');
-    cancelBtn.addEventListener('click', e => this.handleCancel(e));
+    cancelBtn.addEventListener('click', e => this.renderPreviousListState(e));
 
     // creates Contact; renders new state
     const form = document.querySelector('form'); 
     form.addEventListener('submit', e => this.handleSubmit(e, contactObj.id));
   }
 
-  handleCancel(e) {
+  renderPreviousListState(e) {
     this.main.replaceChildren(...this.listPageContent);
   } 
 
@@ -44,11 +45,10 @@ export class Form {
         return;
       }
     }
-
-    // render contact list page (previous state)
-    this.main.replaceChildren(...this.listPageContent);
-    // render new state
+    // render contact list page layout then render new state
+    document.querySelector('main').innerHTML = Layout.createlistLayoutHTML();
     this.contactList.renderList();
+
     contactId ? 
       showNotification('Contact successfully updated!', 'success') : 
       showNotification('New Contact created!', 'success');

@@ -35,13 +35,6 @@
     "id": 8
   },
   {
-    "full_name": "Dimple",
-    "phone_number": "",
-    "email": "",
-    "tags": "green",
-    "id": 12
-  },
-  {
     "full_name": "Bungo",
     "phone_number": "1234",
     "email": "",
@@ -50,16 +43,23 @@
   },
   {
     "full_name": "Motte",
-    "phone_number": "123",
-    "email": "",
+    "phone_number": "1234",
+    "email": "motte@nico.com",
     "tags": "friend",
     "id": 17
   },
   {
     "full_name": "TestNoti",
     "phone_number": "123",
-    "email": "",
+    "email": "e@ed",
     "tags": "tester",
     "id": 18
+  },
+  {
+    "full_name": "new",
+    "phone_number": "33333",
+    "email": "",
+    "tags": "",
+    "id": 19
   }
 ]
