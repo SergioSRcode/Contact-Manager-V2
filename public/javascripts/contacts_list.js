@@ -2,6 +2,7 @@ import { ContactsAPI } from "./contacts_api.js";
 import { Contact } from "./contact.js";
 import { Form } from "./contact-form.js";
 import { SearchFilter } from "./search-filter.js";
+import { showNotification } from "./notification.js";
 
 export class ContactsList {
   constructor(mainContent) {
@@ -54,11 +55,12 @@ export class ContactsList {
           const isDeleted = await ContactsAPI.deleteById(currentContact.id);
 
           if (!isDeleted) {
-            // do sth
+            showNotification('Oops, something went wrong. Deleting contact failed.');
             return;
           }
 
           this.renderList();
+          showNotification(`Contact "${currentContactName}" was deleted.`, 'success');
         }
       } else {
 

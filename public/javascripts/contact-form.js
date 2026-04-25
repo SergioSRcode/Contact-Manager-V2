@@ -1,4 +1,5 @@
 import { ContactsAPI } from "./contacts_api.js";
+import { showNotification } from "./notification.js";
 
 export class Form {
   constructor(listPageContent, list) {
@@ -33,12 +34,14 @@ export class Form {
     if (contactId) {
       const isUpdated = await ContactsAPI.updateContactbyId(contactId, form);
       if (!isUpdated) {
-        // do something
+        showNotification('Oops, something went wrong. Unable to update contact info.');
+        return;
       }
     } else {
       const isCreated = await ContactsAPI.createContact(form);
       if (!isCreated) {
-        // do something
+        showNotification('Oops, something went wrong. Unable to create new contact.');
+        return;
       }
     }
 
@@ -46,6 +49,9 @@ export class Form {
     this.main.replaceChildren(...this.listPageContent);
     // render new state
     this.contactList.renderList();
+    contactId ? 
+      showNotification('Contact successfully updated!', 'success') : 
+      showNotification('New Contact created!', 'success');
   }
 
   createHeaderHTML() {

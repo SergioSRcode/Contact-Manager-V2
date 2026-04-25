@@ -35,13 +35,6 @@
     "id": 8
   },
   {
-    "full_name": "BnotShow",
-    "phone_number": "",
-    "email": "",
-    "tags": "",
-    "id": 11
-  },
-  {
     "full_name": "Dimple",
     "phone_number": "",
     "email": "",
@@ -61,5 +54,12 @@
     "email": "",
     "tags": "friend",
     "id": 17
+  },
+  {
+    "full_name": "TestNoti",
+    "phone_number": "123",
+    "email": "",
+    "tags": "tester",
+    "id": 18
   }
 ]
