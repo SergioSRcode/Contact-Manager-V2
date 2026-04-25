@@ -17,15 +17,19 @@ export class Form {
 
     // adds event to cancelbtn; renders previous state
     const cancelBtn = document.querySelector('#cancel-btn');
-    cancelBtn.addEventListener('click', e => this.renderPreviousListState(e));
+    cancelBtn.addEventListener('click', e => this.rerenderListState(e));
 
     // creates Contact; renders new state
     const form = document.querySelector('form'); 
     form.addEventListener('submit', e => this.handleSubmit(e, contactObj.id));
   }
 
-  renderPreviousListState(e) {
-    this.main.replaceChildren(...this.listPageContent);
+  rerenderListState(e) {
+    if (e) e.preventDefault();
+
+    const main = document.querySelector('main');
+    main.innerHTML = Layout.createlistLayoutHTML();
+    this.contactList.renderList();
   } 
 
   async handleSubmit(e, contactId) {
@@ -45,9 +49,8 @@ export class Form {
         return;
       }
     }
-    // render contact list page layout then render new state
-    document.querySelector('main').innerHTML = Layout.createlistLayoutHTML();
-    this.contactList.renderList();
+
+    this.rerenderListState();
 
     contactId ? 
       showNotification('Contact successfully updated!', 'success') : 
