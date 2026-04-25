@@ -55,13 +55,27 @@ export class Contact {
     ddTags.classList.add('tags');
     // this.tags === null when no tags are provided
     if (this.tags) {
-      ddTags.innerHTML = this.tags.split(",").map(tag => `<a href="#" class="tag">${tag}</a>`).join(", ");
+      const anchorTags = this.parseTags();
+
+      ddTags.replaceChildren(...anchorTags);
     }
     
     dl.replaceChildren(dtPhoneNum, ddPhoneNum, dtEmail, ddEmail, dtTags, ddTags);
     contactBody.append(dl);
 
     return contactBody;
+  }
+
+  parseTags() {
+    return this.tags.split(",").flatMap((tag, idx, arr) => {
+      const a = document.createElement('a');
+      a.href = '#';
+      a.className = 'tag';
+      a.textContent = tag.trim();
+
+      if (idx < arr.length - 1) return [a, document.createTextNode(', ')];
+      return [a];
+    });
   }
 
   constructContactButtons() {
