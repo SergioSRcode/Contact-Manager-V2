@@ -49,18 +49,11 @@
     "id": 17
   },
   {
-    "full_name": "TestNoti2",
+    "full_name": "TestNoti22",
     "phone_number": "123",
     "email": "e@ed",
     "tags": "tester",
     "id": 18
-  },
-  {
-    "full_name": "new",
-    "phone_number": "33333",
-    "email": "",
-    "tags": "",
-    "id": 19
   },
   {
     "full_name": "newCont",

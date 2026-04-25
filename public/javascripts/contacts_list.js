@@ -39,30 +39,37 @@ export class ContactsList {
   enableContactButtons() {
     this.contactsUl.addEventListener('click', async e => {
       const btn = e.target;
-      const currentContact = btn.closest('li');
-      const currentContactName = currentContact.querySelector('h3').textContent;
 
       if (btn.classList.contains('edit-btn')) {
-        const contactObj = await ContactsAPI.getById(currentContact.id);
-
-        new Form(this.mainContent, this).renderForm(contactObj);
+        await this.handleEdit(btn);
       } else if (btn.classList.contains('delete-btn')) {
-
-        if (confirm(`Do you want to delete "${currentContactName}" ?`)) {
-          const isDeleted = await ContactsAPI.deleteById(currentContact.id);
-
-          if (!isDeleted) {
-            showNotification('Oops, something went wrong. Deleting contact failed.');
-            return;
-          }
-
-          this.renderList();
-          showNotification(`Contact "${currentContactName}" was deleted.`, 'success');
-        }
-      } else {
-        return;
+        await this.handleDelete(btn);
       }
     });
+  }
+
+  async handleEdit(btn) {
+    const currentContact = btn.closest('li');
+    const contactObj = await ContactsAPI.getById(currentContact.id);
+    
+    new Form(this.mainContent, this).renderForm(contactObj);
+  }
+
+  async handleDelete(btn) {
+    const currentContact = btn.closest('li');
+    const currentContactName = currentContact.querySelector('h3').textContent;
+
+    if (confirm(`Do you want to delete "${currentContactName}" ?`)) {
+      const isDeleted = await ContactsAPI.deleteById(currentContact.id);
+
+      if (!isDeleted) {
+        showNotification('Oops, something went wrong. Deleting contact failed.');
+        return;
+      }
+
+      this.renderList();
+      showNotification(`Contact "${currentContactName}" was deleted.`, 'success');
+    }    
   }
 
   enableFilterByTag() {
