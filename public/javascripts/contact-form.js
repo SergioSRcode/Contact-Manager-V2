@@ -60,7 +60,7 @@ export class Form {
     return `
       <form role="form">
         <label>Full name:</label>
-        <input type="text" name="full_name" value="${contact.full_name || ''}">
+        <input type="text" name="full_name" value="${contact.full_name || ''}" required>
 
         <label>Email address:</label>
         <input type="email" name="email" value="${contact.email || ''}">

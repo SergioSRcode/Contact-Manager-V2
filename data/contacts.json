@@ -31,49 +31,14 @@
     "full_name": "Tester Testo",
     "phone_number": "12345663",
     "email": "tester2@testo.org",
-    "tags": null,
-    "id": 5
-  },
-  {
-    "full_name": "Tester Testo",
-    "phone_number": "12345663",
-    "email": "tester2@testo.org",
-    "tags": "tester",
-    "id": 6
-  },
-  {
-    "full_name": "Tester Testo",
-    "phone_number": "12345663",
-    "email": "tester2@testo.org",
-    "tags": "tester",
-    "id": 7
-  },
-  {
-    "full_name": "Tester Testo",
-    "phone_number": "12345663",
-    "email": "tester2@testo.org",
     "tags": "tester",
     "id": 8
   },
   {
-    "full_name": "Tester Testo",
-    "phone_number": "12345663",
-    "email": "tester2@testo.org",
-    "tags": "tester",
-    "id": 9
-  },
-  {
-    "full_name": "tem",
-    "phone_number": null,
-    "email": null,
-    "tags": null,
-    "id": 10
-  },
-  {
-    "full_name": "notShow",
-    "phone_number": null,
-    "email": null,
-    "tags": null,
+    "full_name": "BnotShow",
+    "phone_number": "",
+    "email": "",
+    "tags": "",
     "id": 11
   },
   {
@@ -82,13 +47,6 @@
     "email": "",
     "tags": "green",
     "id": 12
-  },
-  {
-    "full_name": "abro",
-    "phone_number": "",
-    "email": "",
-    "tags": "",
-    "id": 15
   },
   {
     "full_name": "Bungo",
@@ -103,12 +61,5 @@
     "email": "",
     "tags": "friend",
     "id": 17
-  },
-  {
-    "full_name": "newTest",
-    "phone_number": "3333333",
-    "email": "test@now.com",
-    "tags": "green,friend",
-    "id": 18
   }
 ]
