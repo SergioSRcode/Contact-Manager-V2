@@ -25,6 +25,18 @@ export class SearchFilter {
         li.classList.remove('hidden');
       }
     });
+
+    this.handleEmptySearchResult(contactsListElements);
+  }
+
+  handleEmptySearchResult(contactsListElements) {
+    const emptySearchResultPlaceholder = document.querySelector('#empty-search-contacts-placeholder');
+
+    if (contactsListElements.every(li => li.classList.contains('hidden'))) {
+      emptySearchResultPlaceholder.innerHTML = `<h3>There is no contacts starting with ${this.searchField.value}.</h3>`;
+    } else {
+      emptySearchResultPlaceholder.innerHTML = '';
+    }
   }
 
   debounce(func) {
